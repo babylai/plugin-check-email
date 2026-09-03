@@ -14,6 +14,7 @@ after_initialize do
     class EmailValidator < ActiveModel::EachValidator
 
         def validate_each(record, attribute, value)
+            return unless SiteSetting.plugin_check_email_enabled
             return unless value.present?
             return unless defined? record.id
             return unless record.password_validation_required?
